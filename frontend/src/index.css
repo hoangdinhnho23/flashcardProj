@@ -1,0 +1,749 @@
+/***** 01 TYPOGRAPHY SYSTEM
+
+- Font sizes (px)
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+- Font weights
+Default: 400
+Medium: 500
+Semi-bold: 600
+Bold: 700
+
+- Line heights
+
+
+- Letter spacing
+
+
+--- 02 COLORS
+
+- Primary:
+- Tints: 
+- Shades: 
+- Accents:
+- Greys
+
+#ebebeb (lightest tint allowed on #333)
+#333
+
+--- 05 SHADOWS
+
+0 0 0 2px rgba(64, 64, 251, 0.2);
+0 4px 15px rgba(0, 0, 0, 0.2);
+0 0 1.2rem rgba(0, 0, 0, 0.2);
+
+--- 06 BORDER-RADIUS
+
+Default: 9px
+Medium: 11px
+
+--- 07 WHITESPACE
+
+- Spacing system (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128 */
+
+/* #region General style */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%; /* 1rem = 10px */
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  font-weight: 400; /* 16px */
+  line-height: 1; /* 24px */
+  color: #333;
+}
+
+.app-container {
+  background-color: #f6f6f6;
+  min-height: 101vh;
+}
+
+.app2-container {
+  background-color: white;
+  min-height: 101vh;
+}
+.container {
+  max-width: 130rem;
+  margin: 0 auto;
+  padding: 3.2rem 3.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.part-content {
+  padding: 3.2rem 0;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+.fz-18 {
+  font-size: 1.8rem;
+  color: rgb(0, 0, 120);
+}
+/* #endregion */
+
+/************************************************/
+/* #region Animation */
+/************************************************/
+
+@keyframes slideDownFadeIn {
+  from {
+    opacity: 0;
+    /* Start slightly above the final position and transparent */
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    /* End at the naturally centered position (due to flexbox) and fully opaque */
+    transform: translateY(0);
+  }
+}
+
+/* #endregion */
+
+/************************************************/
+/* #region Navigation1 */
+/************************************************/
+.nav1 {
+  display: flex;
+  flex-direction: column;
+  gap: 4.8rem;
+}
+
+.nav1-list {
+  list-style: none;
+  display: flex;
+  gap: 3.2rem;
+}
+
+.nav1-header {
+  font-size: 3.2rem;
+  font-weight: 700;
+}
+
+.nav1-link:link,
+.nav1-link:visited {
+  text-decoration: none;
+  font-size: 1.8rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.nav1-link:hover,
+.nav1-link:active,
+.nav1-link.active {
+  border-bottom: 4px solid #1971c2;
+  padding-bottom: 0.4rem;
+  transition: all 0.25s ease;
+}
+
+/* #endregion */
+
+/******************************************/
+/* #region ClassList */
+/******************************************/
+
+.class-list,
+.module-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  list-style: none;
+}
+
+.link-element:link,
+.link-element:visited {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  box-shadow: 0 0.3rem 1.6rem rgba(0, 0, 0, 0.2);
+  width: 100%;
+  font-size: 2.4rem;
+  font-weight: 500;
+  padding: 0.4rem 3.2rem;
+  color: #093258;
+  border-radius: 6px;
+  background-color: #fff;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+  z-index: 1;
+  transition: transform 0.2s ease;
+}
+
+.link-element::after {
+  content: "";
+  position: absolute;
+  width: 102%;
+  z-index: -1;
+  top: 15%;
+  left: 0%;
+  transform: translateX(-1%);
+  height: 95%;
+  background: #4dabf7;
+  border-radius: 6px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.link-element:hover::after {
+  transform: translateY(2px) translateX(-1%) scale(1.008);
+  background: #339af0;
+}
+
+.link-element:hover {
+  transform: translateY(-3px); /* Giảm độ nhấc lên một chút */
+  box-shadow: 0 0.6rem 1.2rem rgba(0, 0, 0, 0.2);
+  color: #0e4171;
+}
+.li-element {
+  box-sizing: border-box;
+}
+.link-element-header,
+.link-element-action {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.link-element-header {
+  overflow: hidden;
+  white-space: nowrap;
+  flex-grow: 1; /* Cho phép header chiếm không gian còn lại */
+  min-width: 0; /* Quan trọng: Cho phép header co lại */
+}
+.link-element-header .header-icon {
+  flex-shrink: 0;
+}
+
+.link-element-name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  min-width: 0;
+  padding: 0.2rem 0;
+}
+.link-element-action {
+  flex-shrink: 0;
+}
+.icon-ele {
+  height: 4rem;
+  width: 4rem;
+  margin-right: 1.6rem;
+}
+
+.svg-icon {
+  height: 2.4rem;
+  width: 2.4rem;
+}
+
+@media (max-width: 450px) {
+  .header-icon {
+    display: none;
+  }
+}
+
+.btn-add-class {
+  background: linear-gradient(30deg, #1971c2, #1098ad);
+  border: none;
+  color: white;
+  font-size: 1.6rem;
+  width: 150px;
+  height: 40px;
+  border-radius: 6px;
+  margin-bottom: 3.2rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Style cho các nút action trong ListElement */
+.action-button {
+  padding: 1.2rem; /* Thêm padding để dễ click hơn */
+  border-radius: 4px;
+  display: flex; /* Giúp căn giữa icon nếu cần */
+  align-items: center;
+  justify-content: center;
+}
+
+.action-button:hover {
+  background-color: transparent;
+}
+
+.action-button svg {
+  /* Kích thước icon có thể đã được set bởi .svg-icon */
+  /* height: 2rem; */
+  /* width: 2rem; */
+  stroke: #093258;
+}
+.action-button:hover svg {
+  stroke: #000; /* Màu icon khi hover */
+}
+/* #endregion */
+
+/******************************************/
+/* #region Modal Styles */
+/******************************************/
+
+.modal {
+  position: fixed; /* Che phủ toàn bộ màn hình */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 2.4rem 3.2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  min-width: 300px;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  animation: slideDownFadeIn 0.3s ease-out forwards;
+}
+
+.modal-content h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  color: #333;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  font-size: 1.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.modal-input:focus {
+  outline: none;
+  border-color: rgb(64, 64, 251);
+  box-shadow: 0 0 0 2px rgba(64, 64, 251, 0.2);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  margin-top: 1.2rem;
+}
+
+/* Style chung cho các nút trong modal */
+.modal-actions button {
+  padding: 0.8rem 1.6rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+.btn-save {
+  background-color: #228be6;
+  color: white;
+}
+
+.btn-save:hover {
+  background-color: #1c7ed6;
+}
+
+.btn-cancel {
+  background-color: #845ef7;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #7048e8;
+}
+
+.btn-delete {
+  color: white;
+  background-color: #fa5252;
+}
+
+.btn-delete:hover {
+  color: white;
+  background-color: #e03131;
+}
+
+.modal-text {
+  font-size: 1.6rem;
+}
+
+/* #endregion */
+
+/******************************************/
+/* #region Module page */
+/******************************************/
+
+.module-list-in-class {
+  margin-top: 4.8rem;
+  gap: 2.4rem;
+}
+.module-element {
+  z-index: 1;
+}
+.module-element:link,
+.module-element:visited {
+  text-decoration: none;
+  display: flex;
+  gap: 1.6rem;
+  align-items: center;
+  padding: 1.2rem 2.4rem;
+  border-radius: 6px;
+  color: #333;
+  position: relative;
+  overflow: visible;
+  z-index: 1;
+
+  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease; /* Thêm hiệu ứng khi hover (tùy chọn) */
+}
+
+.module-element::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  background-color: white;
+  border-radius: 6px;
+  z-index: -2;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.module-element::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  background-color: #a2d6e4;
+  border-radius: 6px 40px 6px 6px;
+  transform: rotate(-0.5deg); /* Độ xoay (điều chỉnh nếu cần) */
+  z-index: -3;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+@media (max-width: 600px) {
+  .module-element::before {
+    transform: rotate(-1.2deg);
+  }
+  .module-element:hover::before {
+    transform: rotate(-1.5deg); /* Xoay thêm và to ra */
+    background-color: #90caf9; /* Xanh dương đậm hơn (Material Blue 200) */
+  }
+}
+
+.module-element:hover {
+  transform: translateY(-3px); /* Nhấc lên nhiều hơn chút */
+}
+
+.module-element:hover::after {
+}
+
+.module-element:hover::before {
+  transform: rotate(-1deg); /* Xoay thêm và to ra */
+  background-color: #90caf9; /* Xanh dương đậm hơn (Material Blue 200) */
+}
+
+.module-additional-info {
+  display: flex;
+  gap: 1.6rem;
+  color: #333;
+  font-size: 1.4rem;
+}
+.module-data {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.module-name {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellpisis;
+  padding: 0.2rem 0rem;
+}
+
+/* #endregion */
+
+/******************************************/
+/* #region Flashcard */
+/******************************************/
+/******************************************/
+/* #region Flashcard */
+/******************************************/
+/* ... (Các style khác giữ nguyên) ... */
+
+/******************************************/
+/* #region Flashcard Page & Viewer */
+/******************************************/
+
+.flashcard-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Căn giữa các phần tử con theo chiều ngang */
+  gap: 3.2rem; /* Khoảng cách giữa các phần */
+  padding: 3.2rem;
+}
+
+.flashcard-viewer {
+  display: flex;
+  align-items: center; /* Căn giữa thẻ và nút theo chiều dọc */
+  justify-content: center; /* Căn giữa nội dung (quan trọng khi chỉ có thẻ) */
+  gap: 2rem; /* Khoảng cách giữa nút và thẻ */
+  width: 100%; /* Chiếm toàn bộ chiều rộng container */
+  min-height: 35rem; /* Chiều cao tối thiểu để chứa thẻ và nút */
+  position: relative; /* Cần cho định vị nút tuyệt đối nếu muốn */
+  perspective: 1200px; /* Tăng perspective cho hiệu ứng đẹp hơn */
+  overflow: hidden; /* Ẩn các thẻ trượt ra ngoài */
+}
+
+/* Container cho thẻ hiện tại để áp dụng animation */
+.flashcard-display-area {
+  /* Kích thước nên khớp với .flashcard-element hoặc để nó tự điều chỉnh */
+  display: flex; /* Giúp chứa flashcard-element */
+  justify-content: center;
+  align-items: center;
+  /* Quan trọng: Animation */
+  animation-duration: 0.4s; /* Thời gian hiệu ứng */
+  animation-fill-mode: forwards; /* Giữ trạng thái cuối của animation */
+  animation-timing-function: ease-in-out;
+}
+
+/* Nút điều hướng */
+.nav-btn {
+  background-color: rgba(255, 255, 255, 0.7); /* Nền bán trong suốt */
+  border: 1px solid #ccc;
+  border-radius: 50%; /* Làm tròn nút */
+  width: 4.5rem; /* Kích thước nút */
+  height: 4.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  z-index: 10; /* Đảm bảo nút nổi lên trên thẻ */
+  flex-shrink: 0; /* Ngăn nút bị co lại */
+}
+
+.nav-btn:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.nav-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: rgba(200, 200, 200, 0.5);
+}
+
+.nav-btn .svg-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  stroke: #333;
+}
+
+/* Tùy chọn: Định vị tuyệt đối nút nếu muốn chúng ở rìa */
+/*
+.left-btn {
+  position: absolute;
+  left: 1rem;
+}
+.right-btn {
+  position: absolute;
+  right: 1rem;
+}
+.flashcard-viewer {
+  justify-content: center; // Cần cái này nếu nút absolute
+}
+*/
+
+/* Bộ đếm thẻ */
+.flashcard-counter {
+  font-size: 1.4rem;
+  color: #555;
+  margin-top: -1.5rem; /* Kéo lên gần khu vực thẻ hơn */
+}
+
+/* Thông báo khi không có thẻ */
+.no-flashcards-message {
+  font-size: 1.8rem;
+  color: #777;
+  padding: 4rem;
+  text-align: center;
+  min-height: 20rem; /* Đảm bảo khu vực viewer có chiều cao */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Phần thêm thẻ mới */
+.add-flashcard-section {
+  margin-top: 2rem;
+  padding: 2rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 50rem; /* Giới hạn chiều rộng */
+}
+.add-flashcard-section h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+.add-flashcard-section div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.add-flashcard-section label {
+  width: 8rem; /* Căn chỉnh label */
+  text-align: right;
+  font-size: 1.4rem;
+}
+.add-flashcard-section input {
+  flex-grow: 1;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1.4rem;
+}
+.add-flashcard-section button {
+  align-self: flex-end; /* Đẩy nút sang phải */
+  padding: 0.8rem 1.6rem;
+  background-color: #228be6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.4rem;
+  transition: background-color 0.2s;
+}
+.add-flashcard-section button:hover {
+  background-color: #1c7ed6;
+}
+
+/******************************************/
+/* #region Flashcard Element (Giữ nguyên hiệu ứng lật) */
+/******************************************/
+.flashcard-element {
+  /* Giữ nguyên các thuộc tính kích thước, border-radius, font-size, cursor, position, transform-style, transition (cho hiệu ứng lật) */
+  min-width: 40rem; /* Có thể điều chỉnh */
+  min-height: 25rem; /* Có thể điều chỉnh */
+  border-radius: 6px;
+  font-size: 1.8rem; /* Tăng font size một chút */
+  color: #333;
+  position: relative;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease; /* Hiệu ứng lật */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Thêm bóng đổ rõ hơn */
+  /* Không cần background-color ở đây nữa vì các mặt sẽ có màu riêng */
+  /* Đảm bảo thẻ không bị co lại */
+  flex-shrink: 0;
+}
+
+.flashcard-element.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.flashcard-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem; /* Tăng padding */
+  border-radius: 6px; /* Giữ bo góc */
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  text-align: center;
+  line-height: 1.4; /* Cải thiện đọc */
+}
+
+.flashcard-front {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  z-index: 2;
+}
+
+.flashcard-back {
+  background-color: #e0f7fa; /* Màu xanh nhạt */
+  border: 1px solid #b2ebf2;
+  transform: rotateY(180deg);
+}
+
+/******************************************/
+/* #region Slide Transition Animations */
+/******************************************/
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Áp dụng animation khi class tương ứng được thêm vào */
+.flashcard-display-area.slide-enter-right {
+  animation-name: slideInFromRight;
+}
+
+.flashcard-display-area.slide-enter-left {
+  animation-name: slideInFromLeft;
+}
+
+/* Tùy chọn: Hiệu ứng slide-out (phức tạp hơn, cần quản lý thẻ cũ và mới cùng lúc hoặc dùng thư viện như react-transition-group) */

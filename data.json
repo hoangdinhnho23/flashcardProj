@@ -1,0 +1,94 @@
+[
+  {
+    "collection": "classes",
+    "data": [
+      { "name": "Lớp 10A" },
+      { "name": "Lớp 10B" },
+      { "name": "Lớp 10C" }
+    ]
+  },
+  {
+    "collection": "modules",
+    "data": [
+      { "classId": "65391584abac207cb9dc2a10", "name": "Học kỳ 1 - Toán" },
+      { "classId": "65391584abac207cb9dc2a10", "name": "Học kỳ 1 - Văn" },
+      { "classId": "65391584abac207cb9dc2a10", "name": "Học kỳ 1 - Anh" },
+      { "classId": "65391584abac207cb9dc2a11", "name": "Học kỳ 1 - Toán" },
+      { "classId": "65391584abac207cb9dc2a11", "name": "Học kỳ 1 - Văn" },
+      { "classId": "65391584abac207cb9dc2a11", "name": "Học kỳ 1 - Anh" },
+      { "classId": "65391584abac207cb9dc2a12", "name": "Học kỳ 1 - Toán" },
+      { "classId": "65391584abac207cb9dc2a12", "name": "Học kỳ 1 - Văn" },
+      { "classId": "65391584abac207cb9dc2a12", "name": "Học kỳ 1 - Anh" }
+    ]
+  },
+  {
+    "collection": "flashcards",
+    "data": [
+      // Flashcards cho Module 1 (Toán 10A)
+      { "moduleId": "65391584abac207cb9dc2a13", "term": "Tập hợp", "definition": "Một nhóm các đối tượng có chung một hoặc nhiều đặc tính.", "imageUrlTerm": "https://example.com/tap-hop-term.jpg", "imageUrlDefinition": "https://example.com/tap-hop-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a13", "term": "Hàm số", "definition": "Một quan hệ giữa một tập hợp các đầu vào và một tập hợp các đầu ra có thể.", "imageUrlTerm": "https://example.com/ham-so-term.jpg", "imageUrlDefinition": "https://example.com/ham-so-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a13", "term": "Phương trình", "definition": "Một câu lệnh toán học khẳng định rằng hai biểu thức là bằng nhau.", "imageUrlTerm": "https://example.com/phuong-trinh-term.jpg", "imageUrlDefinition": "https://example.com/phuong-trinh-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a13", "term": "Bất phương trình", "definition": "Một quan hệ toán học so sánh hai biểu thức, có thể không bằng nhau.", "imageUrlTerm": "https://example.com/bat-phuong-trinh-term.jpg", "imageUrlDefinition": "https://example.com/bat-phuong-trinh-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a13", "term": "Góc", "definition": "Hình được tạo bởi hai tia chung điểm gốc.", "imageUrlTerm": "https://example.com/goc-term.jpg", "imageUrlDefinition": "https://example.com/goc-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a13", "term": "Đường tròn", "definition": "Tập hợp tất cả các điểm trên mặt phẳng cách đều một điểm cho trước.", "imageUrlTerm": "https://example.com/duong-tron-term.jpg", "imageUrlDefinition": "https://example.com/duong-tron-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a13", "term": "Tam giác", "definition": "Một đa giác có ba cạnh và ba đỉnh.", "imageUrlTerm": "https://example.com/tam-giac-term.jpg", "imageUrlDefinition": "https://example.com/tam-giac-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a13", "term": "Đường thẳng", "definition": "Một tập hợp các điểm kéo dài vô tận theo hai hướng.", "imageUrlTerm": "https://example.com/duong-thang-term.jpg", "imageUrlDefinition": "https://example.com/duong-thang-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a13", "term": "Mặt phẳng", "definition": "Một bề mặt phẳng kéo dài vô tận theo mọi hướng.", "imageUrlTerm": "https://example.com/mat-phang-term.jpg", "imageUrlDefinition": "https://example.com/mat-phang-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a13", "term": "Vectơ", "definition": "Một đại lượng có cả độ lớn và hướng.", "imageUrlTerm": "https://example.com/vecto-term.jpg", "imageUrlDefinition": "https://example.com/vecto-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a13", "term": "Tọa độ", "definition": "Một tập hợp các giá trị xác định vị trí của một điểm.", "imageUrlTerm": "https://example.com/toa-do-term.jpg", "imageUrlDefinition": "https://example.com/toa-do-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a13", "term": "Hệ tọa độ", "definition": "Một hệ thống sử dụng một hoặc nhiều số để xác định duy nhất vị trí của một điểm.", "imageUrlTerm": "https://example.com/he-toa-do-term.jpg", "imageUrlDefinition": "https://example.com/he-toa-do-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a13", "term": "Đồ thị", "definition": "Một biểu diễn trực quan của các mối quan hệ giữa các đối tượng.", "imageUrlTerm": "https://example.com/do-thi-term.jpg", "imageUrlDefinition": "https://example.com/do-thi-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a13", "term": "Bảng biến thiên", "definition": "Bảng thể hiện sự biến thiên của hàm số.", "imageUrlTerm": "https://example.com/bang-bien-thien-term.jpg", "imageUrlDefinition": "https://example.com/bang-bien-thien-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a13", "term": "Giá trị lớn nhất", "definition": "Giá trị lớn nhất mà một hàm số có thể đạt được.", "imageUrlTerm": "https://example.com/gia-tri-lon-nhat-term.jpg", "imageUrlDefinition": "https://example.com/gia-tri-lon-nhat-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a13", "term": "Giá trị nhỏ nhất", "definition": "Giá trị nhỏ nhất mà một hàm số có thể đạt được.", "imageUrlTerm": "https://example.com/gia-tri-nho-nhat-term.jpg", "imageUrlDefinition": "https://example.com/gia-tri-nho-nhat-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a13", "term": "Tiệm cận", "definition": "Đường thẳng mà đồ thị hàm số tiến gần đến.", "imageUrlTerm": "https://example.com/tiem-can-term.jpg", "imageUrlDefinition": "https://example.com/tiem-can-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a13", "term": "Đạo hàm", "definition": "Độ dốc của tiếp tuyến tại một điểm của đồ thị.", "imageUrlTerm": "https://example.com/dao-ham-term.jpg", "imageUrlDefinition": "https://example.com/dao-ham-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a13", "term": "Nguyên hàm", "definition": "Hàm số mà đạo hàm của nó bằng một hàm số cho trước.", "imageUrlTerm": "https://example.com/nguyen-ham-term.jpg", "imageUrlDefinition": "https://example.com/nguyen-ham-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a13", "term": "Tích phân", "definition": "Diện tích dưới đường cong của một hàm số.", "imageUrlTerm": "https://example.com/tich-phan-term.jpg", "imageUrlDefinition": "https://example.com/tich-phan-def.jpg" },
+
+      // Flashcards cho Module 2 (Văn 10A)
+      { "moduleId": "65391584abac207cb9dc2a14", "term": "Truyện Kiều", "definition": "Tác phẩm thơ Nôm của Nguyễn Du.", "imageUrlTerm": "https://example.com/truyen-kieu-term.jpg", "imageUrlDefinition": "https://example.com/truyen-kieu-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a14", "term": "Lục Vân Tiên", "definition": "Tác phẩm truyện thơ Nôm của Nguyễn Đình Chiểu.", "imageUrlTerm": "https://example.com/luc-van-tien-term.jpg", "imageUrlDefinition": "https://example.com/luc-van-tien-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a14", "term": "Chí Phèo", "definition": "Truyện ngắn của Nam Cao.", "imageUrlTerm": "https://example.com/chi-pheo-term.jpg", "imageUrlDefinition": "https://example.com/chi-pheo-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a14", "term": "Đời thừa", "definition": "Truyện ngắn của Nam Cao.", "imageUrlTerm": "https://example.com/doi-thua-term.jpg", "imageUrlDefinition": "https://example.com/doi-thua-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a14", "term": "Số đỏ", "definition": "Tiểu thuyết của Vũ Trọng Phụng.", "imageUrlTerm": "https://example.com/so-do-term.jpg", "imageUrlDefinition": "https://example.com/so-do-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a14", "term": "Tắt đèn", "definition": "Tiểu thuyết của Ngô Tất Tố.", "imageUrlTerm": "https://example.com/tat-den-term.jpg", "imageUrlDefinition": "https://example.com/tat-den-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a14", "term": "Vợ chồng A Phủ", "definition": "Truyện ngắn của Tô Hoài.", "imageUrlTerm": "https://example.com/vo-chong-a-phu-term.jpg", "imageUrlDefinition": "https://example.com/vo-chong-a-phu-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a14", "term": "Rừng xà nu", "definition": "Truyện ngắn của Nguyễn Trung Thành.", "imageUrlTerm": "https://example.com/rung-xa-nu-term.jpg", "imageUrlDefinition": "https://example.com/rung-xa-nu-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a14", "term": "Những ngôi sao xa xôi", "definition": "Truyện ngắn của Lê Minh Khuê.", "imageUrlTerm": "https://example.com/nhung-ngoi-sao-xa-xoi-term.jpg", "imageUrlDefinition": "https://example.com/nhung-ngoi-sao-xa-xoi-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a14", "term": "Chiếc thuyền ngoài xa", "definition": "Truyện ngắn của Nguyễn Minh Châu.", "imageUrlTerm": "https://example.com/chiec-thuyen-ngoai-xa-term.jpg", "imageUrlDefinition": "https://example.com/chiec-thuyen-ngoai-xa-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a14", "term": "Việt Bắc", "definition": "Bài thơ của Tố Hữu.", "imageUrlTerm": "https://example.com/viet-bac-term.jpg", "imageUrlDefinition": "https://example.com/viet-bac-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a14", "term": "Tây Tiến", "definition": "Bài thơ của Quang Dũng.", "imageUrlTerm": "https://example.com/tay-tien-term.jpg", "imageUrlDefinition": "https://example.com/tay-tien-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a14", "term": "Đồng chí", "definition": "Bài thơ của Chính Hữu.", "imageUrlTerm": "https://example.com/dong-chi-term.jpg", "imageUrlDefinition": "https://example.com/dong-chi-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a14", "term": "Sóng", "definition": "Bài thơ của Xuân Quỳnh.", "imageUrlTerm": "https://example.com/song-term.jpg", "imageUrlDefinition": "https://example.com/song-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a14", "term": "Đất Nước", "definition": "Trích đoạn trường ca Mặt đường khát vọng của Nguyễn Khoa Điềm.", "imageUrlTerm": "https://example.com/dat-nuoc-term.jpg", "imageUrlDefinition": "https://example.com/dat-nuoc-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a14", "term": "Người lái đò Sông Đà", "definition": "Bút ký của Nguyễn Tuân.", "imageUrlTerm": "https://example.com/nguoi-lai-do-song-da-term.jpg", "imageUrlDefinition": "https://example.com/nguoi-lai-do-song-da-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a14", "term": "Ai đã đặt tên cho dòng sông", "definition": "Bút ký của Hoàng Phủ Ngọc Tường.", "imageUrlTerm": "https://example.com/ai-da-dat-ten-cho-dong-song-term.jpg", "imageUrlDefinition": "https://example.com/ai-da-dat-ten-cho-dong-song-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a14", "term": "Hồn Trương Ba, da hàng thịt", "definition": "Kịch của Lưu Quang Vũ.", "imageUrlTerm": "https://example.com/hon-truong-ba-da-hang-thit-term.jpg", "imageUrlDefinition": "https://example.com/hon-truong-ba-da-hang-thit-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a14", "term": "Số phận con người", "definition": "Truyện ngắn của Sô-lô-khốp.", "imageUrlTerm": "https://example.com/so-phan-con-nguoi-term.jpg", "imageUrlDefinition": "https://example.com/so-phan-con-nguoi-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a14", "term": "Thuốc", "definition": "Truyện ngắn của Lỗ Tấn.", "imageUrlTerm": "https://example.com/thuoc-term.jpg", "imageUrlDefinition": "https://example.com/thuoc-def.jpg" },
+
+      // Flashcards cho Module 3 (Anh 10A)
+      { "moduleId": "65391584abac207cb9dc2a15", "term": "Vocabulary", "definition": "The collection of words known by a person or used in a language.", "imageUrlTerm": "https://example.com/vocabulary-term.jpg", "imageUrlDefinition": "https://example.com/vocabulary-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a15", "term": "Grammar", "definition": "The whole system and structure of a language or of languages in general, usually taken as consisting of syntax and morphology.", "imageUrlTerm": "https://example.com/grammar-term.jpg", "imageUrlDefinition": "https://example.com/grammar-def.jpg" },
+      { "moduleId": "65391584abac207cb9dc2a15", "term": "Pronunciation", "definition": "The way in which a word or language is spoken.", "imageUrlTerm": "https://example.com/pronunciation-term.jpg", "imageUrlDefinition": "https://example.com/pronunciation-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a15", "term": "Listening", "definition": "The ability to perceive, understand, and respond to verbal or non-verbal messages.", "imageUrlTerm": "https://example.com/listening-term.jpg", "imageUrlDefinition": "https://example.com/listening-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a15", "term": "Speaking", "definition": "The action of conveying information or expressing one's thoughts and feelings in spoken language.", "imageUrlTerm": "https://example.com/speaking-term.jpg", "imageUrlDefinition": "https://example.com/speaking-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a15", "term": "Reading", "definition": "The process of looking at a series of written symbols and getting meaning from them.", "imageUrlTerm": "https://example.com/reading-term.jpg", "imageUrlDefinition": "https://example.com/reading-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a15", "term": "Writing", "definition": "The activity of putting words on paper or another surface using a pen, pencil, or other instrument.", "imageUrlTerm": "https://example.com/writing-term.jpg", "imageUrlDefinition": "https://example.com/writing-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a15", "term": "Translation", "definition": "The process of translating words or text from one language into another.", "imageUrlTerm": "https://example.com/translation-term.jpg", "imageUrlDefinition": "https://example.com/translation-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a15", "term": "Culture", "definition": "The customs, arts, social institutions, and achievements of a particular nation, people, or group.", "imageUrlTerm": "https://example.com/culture-term.jpg", "imageUrlDefinition": "https://example.com/culture-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a15", "term": "Idiom", "definition": "A group of words established by usage as having a meaning not deducible from those of the individual words.", "imageUrlTerm": "https://example.com/idiom-term.jpg", "imageUrlDefinition": "https://example.com/idiom-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a15", "term": "Phrasal verb", "definition": "A verb combined with a preposition or adverb to form a verb with a meaning that is different from the original verb.", "imageUrlTerm": "https://example.com/phrasal-verb-term.jpg", "imageUrlDefinition": "https://example.com/phrasal-verb-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a15", "term": "Collocation", "definition": "A typical combination of words, often used together in a particular context.", "imageUrlTerm": "https://example.com/collocation-term.jpg", "imageUrlDefinition": "https://example.com/collocation-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a15", "term": "Discourse", "definition": "Written or spoken communication or debate.", "imageUrlTerm": "https://example.com/discourse-term.jpg", "imageUrlDefinition": "https://example.com/discourse-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a15", "term": "Register", "definition": "A variety of a language used for a particular purpose or in a particular social setting.", "imageUrlTerm": "https://example.com/register-term.jpg", "imageUrlDefinition": "https://example.com/register-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a15", "term": "Genre", "definition": "A category of artistic composition, as in music or literature, characterized by similarities in form, style, or subject matter.", "imageUrlTerm": "https://example.com/genre-term.jpg", "imageUrlDefinition": "https://example.com/genre-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a15", "term": "Context", "definition": "The circumstances that form the setting for an event, statement, or idea, and in terms of which it can be fully understood.", "imageUrlTerm": "https://example.com/context-term.jpg", "imageUrlDefinition": "https://example.com/context-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a15", "term": "Function", "definition": "The purpose for which a word, phrase, or sentence is used in communication.", "imageUrlTerm": "https://example.com/function-term.jpg", "imageUrlDefinition": "https://example.com/function-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a15", "term": "Notion", "definition": "A conception of or belief about something.", "imageUrlTerm": "https://example.com/notion-term.jpg", "imageUrlDefinition": "https://example.com/notion-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a15", "term": "Skill", "definition": "The ability to do something well; expertise.", "imageUrlTerm": "https://example.com/skill-term.jpg", "imageUrlDefinition": "https://example.com/skill-def.jpg" },
+        { "moduleId": "65391584abac207cb9dc2a15", "term": "Strategy", "definition": "A plan of action designed to achieve a long-term or overall aim.", "imageUrlTerm": "https://example.com/strategy-term.jpg", "imageUrlDefinition": "https://example.com/strategy-def.jpg" }
+    ]
+  }
+]
