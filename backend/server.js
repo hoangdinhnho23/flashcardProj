@@ -14,7 +14,10 @@ connectDB(); // Kết nối đến MongoDB
 // Middleware
 // Middleware
 // Cấu hình CORS để cho phép frontend (cả local và deployed) gọi API
-const allowedOrigins = [process.env.FRONTEND_URL, "URL_NETLIFY"]; // Sẽ cập nhật URL Netlify sau
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "https://flashcardproject.netlify.app",
+]; // Sẽ cập nhật URL Netlify sau
 app.use(
   cors({
     origin: function (origin, callback) {
