@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { useParams, Link, useLocation } from "react-router-dom"; // Import Link
 import ModuleElement from "../components/ModuleElement";
+import axiosInstance from "../api/axiosInstance";
 
 const ModuleList = () => {
   const [currentClass, setCurrentClass] = useState(null);
@@ -14,9 +14,13 @@ const ModuleList = () => {
     setLoading(true);
     try {
       console.log(classId);
-      const classResponse = await axios.get(`/api/classes/getClass/${classId}`);
+      const classResponse = await axiosInstance.get(
+        `/api/classes/getClass/${classId}`
+      );
       setCurrentClass(classResponse.data);
-      const response = await axios.get(`/api/classes/${classId}/modules`);
+      const response = await axiosInstance.get(
+        `/api/classes/${classId}/modules`
+      );
       // Assuming the backend route /api/classes/:id returns an array of modules directly
       setModulesOfClass(response.data);
     } catch (error) {
@@ -37,7 +41,7 @@ const ModuleList = () => {
     const newModuleName = prompt("Enter new module name:");
     if (newModuleName && classId) {
       try {
-        const response = await axios.post("/api/modules", {
+        const response = await axiosInstance.post("/api/modules", {
           name: newModuleName,
           classId: classId,
           description: "Default description",

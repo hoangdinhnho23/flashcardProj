@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import ListElement from "./ListElement";
 import EditForm from "./EditForm";
+import axiosInstance from "../api/axiosInstance";
 
 const ClassList = () => {
   const [classes, setClasses] = useState([]);
@@ -14,7 +14,7 @@ const ClassList = () => {
 
   const fetchClasses = async () => {
     try {
-      const response = await axios.get("/api/classes");
+      const response = await axiosInstance.get("/api/classes");
       setClasses(response.data);
     } catch (error) {
       console.error("Error fetching classes:", error);
@@ -28,7 +28,7 @@ const ClassList = () => {
   /********************************************/
   const handleAddClass = async (className) => {
     if (className && className.trim()) {
-      axios
+      axiosInstance
         .post("/api/classes", { name: className })
         .then((response) => {
           setClasses([...classes, response.data]);
@@ -75,9 +75,12 @@ const ClassList = () => {
     }
 
     try {
-      const response = await axios.put(`/api/classes/${selectedClass._id}`, {
-        name: updatedName,
-      });
+      const response = await axiosInstance.put(
+        `/api/classes/${selectedClass._id}`,
+        {
+          name: updatedName,
+        }
+      );
       setClasses(
         classes.map((cls) =>
           cls._id === selectedClass._id ? response.data : cls
@@ -106,7 +109,9 @@ const ClassList = () => {
   const handleDeleteClass = async () => {
     if (!selectedClass) return;
     try {
-      const response = await axios.delete(`/api/classes/${selectedClass._id}`);
+      const response = await axiosInstance.delete(
+        `/api/classes/${selectedClass._id}`
+      );
       setClasses(classes.filter((cls) => cls._id !== selectedClass._id));
       handleCloseDeleteModal();
     } catch (error) {

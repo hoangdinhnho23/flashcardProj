@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import FlashcardElement from "../components/FlashcardElement";
 import AddFlashcardsModal from "../components/AddFlashcardsModal"; // Import modal mới
+import axiosInstance from "../api/axiosInstance";
 
 const FlashcardList = () => {
   const [flashcards, setFlashcards] = useState([]);
@@ -26,7 +26,7 @@ const FlashcardList = () => {
     try {
       // *** QUAN TRỌNG: Đảm bảo endpoint này trả về danh sách flashcards của module ***
       // Endpoint có thể là `/api/modules/${moduleId}/flashcards` hoặc tương tự
-      const response = await axios.get(`/api/modules/${moduleId}`); // SỬA ENDPOINT NẾU CẦN
+      const response = await axiosInstance.get(`/api/modules/${moduleId}`); // SỬA ENDPOINT NẾU CẦN
       setFlashcards(response.data || []);
       setCurrentIndex(0);
       setSlideDirection("none");

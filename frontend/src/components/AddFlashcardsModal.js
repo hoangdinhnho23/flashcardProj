@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 // Số lượng trường mặc định khi mở modal
 const INITIAL_FIELD_COUNT = 5;
@@ -118,7 +118,7 @@ function AddFlashcardsModal({ isOpen, onClose, onSubmitSuccess, moduleId }) {
     try {
       // Gọi API để thêm nhiều thẻ cùng lúc (cần backend hỗ trợ)
       // Giả sử endpoint là /api/flashcards/bulk
-      const response = await axios.post("/api/flashcards/bulk", {
+      const response = await axiosInstance.post("/api/flashcards/bulk", {
         moduleId: moduleId,
         cards: validCards.map(({ term, definition }) => ({ term, definition })), // Chỉ gửi term và definition
       });

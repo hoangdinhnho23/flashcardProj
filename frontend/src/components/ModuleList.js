@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Import Link để điều hướng giữa các trang
-import axios from "axios"; // Import axios để thực hiện các yêu cầu HTTP
 import ListElement from "./ListElement";
 import EditForm from "./EditForm";
+import axiosInstance from "../api/axiosInstance";
 
 function Module() {
   const [allModules, setAllModules] = useState([]); // Khởi tạo state để lưu danh sách học phần
@@ -13,7 +13,7 @@ function Module() {
 
   const fetchAllModules = async () => {
     try {
-      const response = await axios.get("/api/modules"); // Gửi yêu cầu GET đến API để lấy danh sách học phần
+      const response = await axiosInstance.get("/api/modules"); // Gửi yêu cầu GET đến API để lấy danh sách học phần
       setAllModules(response.data); // Cập nhật state với dữ liệu nhận được
     } catch (error) {
       console.error("Error fetching modules:", error); // In lỗi nếu có
@@ -50,9 +50,12 @@ function Module() {
     }
     if (updatedName && updatedName.trim()) {
       try {
-        const response = await axios.put(`/api/modules/${selectedModule._id}`, {
-          name: updatedName,
-        });
+        const response = await axiosInstance.put(
+          `/api/modules/${selectedModule._id}`,
+          {
+            name: updatedName,
+          }
+        );
         setAllModules(
           allModules.map((module) =>
             module._id === selectedModule._id ? response.data : module
@@ -81,7 +84,9 @@ function Module() {
   const handleDeleteModule = async () => {
     if (!selectedModule) return;
     try {
-      const response = await axios.delete(`/api/modules/${selectedModule._id}`);
+      const response = await axiosInstance.delete(
+        `/api/modules/${selectedModule._id}`
+      );
       setAllModules(
         allModules.filter((module) => module._id !== selectedModule._id)
       );
