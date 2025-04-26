@@ -22,7 +22,8 @@ app.use(
       if (!origin || allowedOrigins.indexOf(origin) !== -1) {
         callback(null, true);
       } else {
-        callback(new Error("Not allowed by CORS"));
+        console.error(`CORS Error: Origin ${origin} not allowed.`); // Log lỗi để debug
+        callback(new Error("Not allowed by CORS")); // Chặn request
       }
     },
     credentials: true, // Nếu bạn dùng cookie/session
