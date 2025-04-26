@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom"; // Import Link từ react-router-dom
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom"; // Import Link từ react-router-dom
 import Navigation1 from "../components/Navigation1";
 import ClassList from "../components/ClassList";
 import ModuleList from "../components/ModuleList";

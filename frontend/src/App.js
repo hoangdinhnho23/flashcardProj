@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import ClassList from "./components/ClassList";
-import ModuleList from "./components/ModuleList";
+import React from "react";
 import FlashcardList from "./pages/FlashcardList";
 import {
   BrowserRouter as Router,
@@ -8,7 +6,6 @@ import {
   Route,
   useLocation,
 } from "react-router-dom"; // Import các thành phần cần thiết từ react-router-dom
-import Breadcrumb from "./components/Breadcrumb";
 import Home from "./pages/Home"; // Import trang Home
 import Modules from "./pages/Modules"; // Import trang Modules
 const AppLayout = ({ children }) => {
