@@ -1,63 +1,94 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom"; // Import useParams to get moduleId from URL
+import { useParams } from "react-router-dom";
 import FlashcardElement from "../components/FlashcardElement";
+import AddFlashcardsModal from "../components/AddFlashcardsModal"; // Import modal mới
 
 const FlashcardList = () => {
   const [flashcards, setFlashcards] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { moduleId } = useParams(); // Get moduleId from URL
-  const [newTerm, setNewTerm] = useState(""); // State for new term input
-  const [newDefinition, setNewDefinition] = useState(""); // State for new definition input
+  const { moduleId } = useParams();
+  // Xóa state cho input đơn lẻ cũ
+  // const [newTerm, setNewTerm] = useState("");
+  // const [newDefinition, setNewDefinition] = useState("");
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [slideDirection, setSlideDirection] = useState("none");
 
-  const handleAddFlashcard = async () => {
-    if (!newTerm.trim() || !newDefinition.trim()) {
-      alert("Please enter both term and definition."); // Check if inputs are empty
-      return;
-    }
+  // State mới để quản lý modal
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
-    try {
-      const response = await axios.post("/api/flashcards", {
-        moduleId: moduleId, // Use the moduleId from URL
-        term: newTerm,
-        definition: newDefinition,
-      });
-      setFlashcards([...flashcards, response.data]);
-      setNewTerm("");
-      setNewDefinition("");
-      setSlideDirection("none"); // Không cần hiệu ứng khi thêm
-    } catch (error) {
-      console.error("Error adding flashcard:", error.message);
-    }
-  };
-
-  const fetchFlashcards = async () => {
+  // --- Fetch Flashcards ---
+  // (Giữ nguyên hàm fetchFlashcards)
+  const fetchFlashcards = useCallback(async () => {
+    // Bọc trong useCallback
     setLoading(true);
     try {
-      const response = await axios.get(`/api/modules/${moduleId}`);
+      // *** QUAN TRỌNG: Đảm bảo endpoint này trả về danh sách flashcards của module ***
+      // Endpoint có thể là `/api/modules/${moduleId}/flashcards` hoặc tương tự
+      const response = await axios.get(`/api/modules/${moduleId}`); // SỬA ENDPOINT NẾU CẦN
       setFlashcards(response.data || []);
       setCurrentIndex(0);
       setSlideDirection("none");
     } catch (error) {
       console.error("Error fetching flashcards:", error);
+      setFlashcards([]); // Set rỗng nếu lỗi
     } finally {
       setLoading(false);
     }
-  };
+  }, [moduleId]); // Phụ thuộc moduleId
 
   useEffect(() => {
-    fetchFlashcards();
-  }, [moduleId]);
+    if (moduleId) {
+      // Chỉ fetch khi có moduleId
+      fetchFlashcards();
+    }
+  }, [fetchFlashcards, moduleId]); // Thêm moduleId vào dependencies
 
+  // --- Xóa hàm handleAddFlashcard cũ ---
+
+  // --- Hàm mở modal ---
+  const openAddModal = () => {
+    setIsAddModalOpen(true);
+  };
+
+  // --- Hàm đóng modal ---
+  const closeAddModal = () => {
+    setIsAddModalOpen(false);
+  };
+
+  // --- Hàm xử lý khi modal thêm thành công ---
+  const handleAddSuccess = (newlyAddedCards) => {
+    // Kiểm tra xem newlyAddedCards có phải là mảng không
+    if (Array.isArray(newlyAddedCards)) {
+      // Cập nhật state flashcards với các thẻ mới
+      const updatedFlashcards = [...flashcards, ...newlyAddedCards];
+      setFlashcards(updatedFlashcards);
+      // Tùy chọn: Chuyển đến thẻ đầu tiên mới được thêm
+      if (newlyAddedCards.length > 0) {
+        setCurrentIndex(flashcards.length); // Index của thẻ đầu tiên trong nhóm mới thêm
+        setSlideDirection("none"); // Không cần hiệu ứng slide khi thêm nhiều thẻ
+      }
+    } else {
+      console.warn(
+        "handleAddSuccess received non-array data:",
+        newlyAddedCards
+      );
+      // Có thể fetch lại toàn bộ danh sách nếu API không trả về đúng chuẩn
+      fetchFlashcards();
+    }
+    closeAddModal(); // Đóng modal sau khi xử lý xong
+  };
+
+  // --- Navigation Functions (goToNextCard, goToPreviousCard) ---
+  // (Giữ nguyên)
   const goToNextCard = useCallback(() => {
     if (flashcards.length === 0) return;
     setSlideDirection("right");
     setTimeout(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % flashcards.length);
-    }, 50); // dùng timeout nhỏ để CSS có thời gian áp dụng class hướng trước khi đổi index
+      setSlideDirection("none"); // Reset direction sau khi chuyển
+    }, 50);
   }, [flashcards.length]);
 
   const goToPreviousCard = useCallback(() => {
@@ -67,11 +98,22 @@ const FlashcardList = () => {
       setCurrentIndex(
         (prevIndex) => (prevIndex - 1 + flashcards.length) % flashcards.length
       );
-    }, 50); // dùng timeout nhỏ để CSS có thời gian áp dụng class hướng trước khi đổi index
+      setSlideDirection("none"); // Reset direction sau khi chuyển
+    }, 50);
   }, [flashcards.length]);
 
+  // --- Keyboard Navigation ---
+  // (Giữ nguyên)
   useEffect(() => {
     const handleKeyDown = (e) => {
+      // Không xử lý phím mũi tên nếu đang focus vào input trong modal
+      if (
+        isAddModalOpen &&
+        (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")
+      ) {
+        return;
+      }
+
       if (flashcards.length === 0) return;
       if (e.key === "ArrowRight") goToNextCard();
       if (e.key === "ArrowLeft") goToPreviousCard();
@@ -80,21 +122,27 @@ const FlashcardList = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [flashcards.length, goToNextCard, goToPreviousCard]);
+  }, [flashcards.length, goToNextCard, goToPreviousCard, isAddModalOpen]); // Thêm isAddModalOpen
 
+  // --- Render Logic ---
   if (loading) return <div>Loading...</div>;
 
   const currentCard = flashcards.length > 0 ? flashcards[currentIndex] : null;
 
+  // Class động cho animation (cần reset direction sau khi animation chạy)
   let cardContainerClass = "flashcard-display-area";
   if (slideDirection === "left") cardContainerClass += " slide-enter-left";
   if (slideDirection === "right") cardContainerClass += " slide-enter-right";
 
   return (
     <div className="flashcard-page-container">
-      {" "}
-      {/* Container chính cho trang */}
       <h1>Flashcard Deck</h1>
+
+      {/* Nút mở modal thêm thẻ */}
+      <button onClick={openAddModal} className="btn-open-add-modal">
+        + Add New Cards
+      </button>
+
       {/* Khu vực hiển thị thẻ */}
       <div className="flashcard-viewer">
         {flashcards.length > 0 ? (
@@ -104,8 +152,9 @@ const FlashcardList = () => {
               className="nav-btn left-btn"
               onClick={goToPreviousCard}
               aria-label="Previous card"
-              disabled={flashcards.length <= 1} // Vô hiệu hóa nếu chỉ có 1 thẻ
+              disabled={flashcards.length <= 1}
             >
+              {/* SVG icon */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -122,11 +171,12 @@ const FlashcardList = () => {
               </svg>
             </button>
 
-            {/* Container chứa thẻ hiện tại (cho hiệu ứng) */}
-            {/* Sử dụng key để React biết thẻ đã thay đổi hoàn toàn, giúp reset state lật */}
+            {/* Container chứa thẻ hiện tại */}
             <div
               className={cardContainerClass}
               key={currentCard?._id || currentIndex}
+              // Reset animation class sau khi hoàn thành
+              onAnimationEnd={() => setSlideDirection("none")}
             >
               {currentCard && <FlashcardElement data={currentCard} />}
             </div>
@@ -136,8 +186,9 @@ const FlashcardList = () => {
               className="nav-btn right-btn"
               onClick={goToNextCard}
               aria-label="Next card"
-              disabled={flashcards.length <= 1} // Vô hiệu hóa nếu chỉ có 1 thẻ
+              disabled={flashcards.length <= 1}
             >
+              {/* SVG icon */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -155,43 +206,28 @@ const FlashcardList = () => {
             </button>
           </>
         ) : (
-          // Hiển thị khi không có thẻ nào
           <div className="no-flashcards-message">
-            No flashcards available in this module. Add one below!
+            No flashcards yet. Click "Add New Cards" to get started!
           </div>
         )}
       </div>
+
       {/* Hiển thị số thứ tự thẻ */}
       {flashcards.length > 0 && (
         <div className="flashcard-counter">
-          Card {currentIndex + 1} of {flashcards.length}
+          {currentIndex + 1} / {flashcards.length}
         </div>
       )}
-      {/* Phần thêm thẻ mới (giữ nguyên) */}
-      <div className="add-flashcard-section">
-        <h2>Add New Flashcard</h2>
-        <div>
-          <label htmlFor="termInput">Term: </label>
-          <input
-            id="termInput"
-            type="text"
-            value={newTerm}
-            onChange={(e) => setNewTerm(e.target.value)}
-            placeholder="Enter term"
-          />
-        </div>
-        <div>
-          <label htmlFor="definitionInput">Definition: </label>
-          <input
-            id="definitionInput"
-            type="text"
-            value={newDefinition}
-            onChange={(e) => setNewDefinition(e.target.value)}
-            placeholder="Enter definition"
-          />
-        </div>
-        <button onClick={handleAddFlashcard}>Add Flashcard</button>
-      </div>
+
+      {/* Render Modal (không hiển thị nếu isAddModalOpen là false) */}
+      <AddFlashcardsModal
+        isOpen={isAddModalOpen}
+        onClose={closeAddModal}
+        onSubmitSuccess={handleAddSuccess}
+        moduleId={moduleId}
+      />
+
+      {/* Xóa phần add-flashcard-section cũ */}
     </div>
   );
 };

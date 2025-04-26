@@ -747,3 +747,108 @@ button {
 }
 
 /* Tùy chọn: Hiệu ứng slide-out (phức tạp hơn, cần quản lý thẻ cũ và mới cùng lúc hoặc dùng thư viện như react-transition-group) */
+/******************************************/
+/* #region Add Flashcards Modal */
+/******************************************/
+
+/* Tăng chiều rộng tối đa cho modal thêm thẻ */
+.add-cards-modal-content {
+  max-width: 70rem; /* Rộng hơn modal thường */
+  max-height: 80vh; /* Giới hạn chiều cao và cho phép scroll */
+  overflow-y: auto; /* Thêm thanh cuộn dọc nếu nội dung dài */
+}
+
+.flashcard-input-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem; /* Khoảng cách giữa các hàng input */
+  margin-bottom: 1.6rem;
+  max-height: 50vh; /* Giới hạn chiều cao vùng input, tạo scroll riêng nếu quá dài */
+  overflow-y: auto; /* Scroll cho riêng vùng input */
+  padding-right: 1rem; /* Tạo khoảng trống cho thanh scroll */
+}
+
+.flashcard-input-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Khoảng cách giữa số thứ tự, input và nút xóa */
+}
+
+.flashcard-input-row .card-index {
+  font-size: 1.4rem;
+  color: #555;
+  min-width: 2.5rem; /* Đảm bảo đủ chỗ cho số thứ tự */
+  text-align: right;
+}
+
+.flashcard-input-row .modal-input {
+  flex: 1; /* Cho phép input co giãn */
+  /* Giữ style từ .modal-input chung */
+}
+
+/* Nút xóa hàng */
+.btn-remove-field {
+  background: none;
+  border: none;
+  color: #fa5252; /* Màu đỏ cảnh báo */
+  font-size: 2.4rem; /* Kích thước dấu X */
+  line-height: 1;
+  padding: 0 0.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.btn-remove-field:hover {
+  color: #e03131; /* Đậm hơn khi hover */
+}
+
+/* Nút thêm trường */
+.btn-add-field {
+  align-self: center; /* Căn giữa nút này */
+  padding: 0.8rem 1.6rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid #228be6; /* Viền xanh */
+  background-color: #e7f5ff; /* Nền xanh nhạt */
+  color: #1971c2; /* Chữ xanh đậm */
+  transition: background-color 0.2s ease, color 0.2s ease;
+  margin-bottom: 1.6rem; /* Khoảng cách với action buttons */
+}
+
+.btn-add-field:hover {
+  background-color: #d0ebff;
+  color: #1864ab;
+}
+
+/* Nút mở modal trên trang chính */
+.btn-open-add-modal {
+  background: linear-gradient(30deg, #1971c2, #1098ad);
+  border: none;
+  color: white;
+  font-size: 1.6rem;
+  padding: 1rem 2rem; /* Tăng padding */
+  border-radius: 6px;
+  margin-bottom: 2.4rem; /* Khoảng cách với viewer */
+  cursor: pointer;
+  font-weight: 500;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-open-add-modal:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Hiển thị lỗi trong modal */
+.modal-error {
+  color: #fa5252; /* Màu đỏ */
+  background-color: #fff5f5; /* Nền hồng nhạt */
+  border: 1px solid #ffc9c9;
+  padding: 0.8rem 1.2rem;
+  border-radius: 4px;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* #endregion */
