@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // Import Link để điều hướng giữa các trang
 import ListElement from "./ListElement";
 import EditForm from "./EditForm";
 import axiosInstance from "../api/axiosInstance";
@@ -84,9 +83,7 @@ function Module() {
   const handleDeleteModule = async () => {
     if (!selectedModule) return;
     try {
-      const response = await axiosInstance.delete(
-        `/api/modules/${selectedModule._id}`
-      );
+      await axiosInstance.delete(`/api/modules/${selectedModule._id}`);
       setAllModules(
         allModules.filter((module) => module._id !== selectedModule._id)
       );

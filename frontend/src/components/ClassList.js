@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import ListElement from "./ListElement";
 import EditForm from "./EditForm";
 import axiosInstance from "../api/axiosInstance";
@@ -109,9 +108,7 @@ const ClassList = () => {
   const handleDeleteClass = async () => {
     if (!selectedClass) return;
     try {
-      const response = await axiosInstance.delete(
-        `/api/classes/${selectedClass._id}`
-      );
+      await axiosInstance.delete(`/api/classes/${selectedClass._id}`);
       setClasses(classes.filter((cls) => cls._id !== selectedClass._id));
       handleCloseDeleteModal();
     } catch (error) {

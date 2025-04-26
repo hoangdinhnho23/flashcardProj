@@ -462,9 +462,6 @@ button {
   transform: translateY(-3px); /* Nhấc lên nhiều hơn chút */
 }
 
-.module-element:hover::after {
-}
-
 .module-element:hover::before {
   transform: rotate(-1deg); /* Xoay thêm và to ra */
   background-color: #90caf9; /* Xanh dương đậm hơn (Material Blue 200) */

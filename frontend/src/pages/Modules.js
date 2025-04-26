@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useParams, Link, useLocation } from "react-router-dom"; // Import Link
+import React, { useState, useEffect, useCallback } from "react";
+import { useParams } from "react-router-dom"; // Import Link
 import ModuleElement from "../components/ModuleElement";
 import axiosInstance from "../api/axiosInstance";
 
@@ -9,7 +9,7 @@ const ModuleList = () => {
   const [loading, setLoading] = useState(true);
   const { classId } = useParams();
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     if (!classId) return;
     setLoading(true);
     try {
@@ -30,12 +30,12 @@ const ModuleList = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [classId]);
 
   useEffect(() => {
     fetchData();
     // fetchModules will re-run if classId changes
-  }, [classId]);
+  }, [classId, fetchData]);
 
   const handleAddModule = async () => {
     const newModuleName = prompt("Enter new module name:");
