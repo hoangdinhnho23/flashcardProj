@@ -90,14 +90,33 @@ function ListElement({ data, type, onEditRequest, onDeleteRequest }) {
     <li key={data._id} className={`${data._id} li-element`}>
       <Link className="link-element" to={`/${type}/${data._id}`}>
         <div className="link-element-header">
-          {type === "class" ? (
-            <ClassIcon />
-          ) : type === "module" ? (
-            <ModuleIcon />
-          ) : null}
-          <span className="link-element-name">{data.name}</span>
+          <div className="top">
+            {type === "class" ? (
+              <>
+                <span className="link-element-count">
+                  {data.moduleCount} Học phần
+                </span>
+                <span className="link-element-member">1 Thành viên</span>
+              </>
+            ) : type === "module" ? (
+              <>
+                <span className="link-element-count">
+                  {data.termCount} Flashcard
+                </span>
+                <span className="link-element-member">Nho Hoang</span>
+              </>
+            ) : null}
+          </div>
+          <div className="bottom">
+            {type === "class" ? (
+              <ClassIcon />
+            ) : type === "module" ? (
+              <ModuleIcon />
+            ) : null}
+            <span className="link-element-name">{data.name}</span>
+          </div>
         </div>
-        <div className="link-element-action">
+        {/* <div className="link-element-action">
           <button
             className="link-element-edit-button action-button"
             onClick={handleEditClick}
@@ -112,10 +131,11 @@ function ListElement({ data, type, onEditRequest, onDeleteRequest }) {
           >
             <DeleteIcon />
           </button>
-        </div>
+        </div> */}
       </Link>
     </li>
   );
 }
 
 export default ListElement;
+export { ClassIcon, ModuleIcon, EditIcon, DeleteIcon };

@@ -8,6 +8,7 @@ import {
 } from "react-router-dom"; // Import các thành phần cần thiết từ react-router-dom
 import Home from "./pages/Home"; // Import trang Home
 import Modules from "./pages/Modules"; // Import trang Modules
+import Learn from "./pages/Learn";
 const AppLayout = ({ children }) => {
   const location = useLocation();
   const containerClass =
@@ -28,9 +29,14 @@ const App = () => {
         </Routes>
         <Routes>
           <Route path="/class/:classId" element={<Modules />} />
-          {/* Trang danh sách học phần theo lớp học */}
-          <Route path="/module/:moduleId" element={<FlashcardList />} />
-          {/* Trang danh sách flashcard theo học phần */}
+          <Route
+            path="/module/:moduleId/:moduleName/:classId"
+            element={<FlashcardList />}
+          />
+          <Route
+            path="/learn/:moduleId/:moduleName/:classId"
+            element={<Learn />}
+          />
         </Routes>
       </AppLayout>
     </Router>

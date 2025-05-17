@@ -1,49 +1,60 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useParams } from "react-router-dom";
 import FlashcardElement from "../components/FlashcardElement";
 import AddFlashcardsModal from "../components/AddFlashcardsModal"; // Import modal mới
 import axiosInstance from "../api/axiosInstance";
+import { SettingIcon } from "./Modules";
+import { Link } from "react-router-dom";
 
 const FlashcardList = () => {
   const [flashcards, setFlashcards] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { moduleId } = useParams();
-  // Xóa state cho input đơn lẻ cũ
-  // const [newTerm, setNewTerm] = useState("");
-  // const [newDefinition, setNewDefinition] = useState("");
-
+  const [className, setClassName] = useState("");
+  const [showSettingMenu, setShowSettingMenu] = useState(false);
+  const { moduleId, moduleName, classId } = useParams();
+  const settingIconRef = useRef();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [slideDirection, setSlideDirection] = useState("none");
 
   // State mới để quản lý modal
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  // State for editing a flashcard
+  const [cardToEditId, setCardToEditId] = useState(null);
+  const [editedTerm, setEditedTerm] = useState("");
+  const [editedDefinition, setEditedDefinition] = useState("");
+
+  const handleSettingIconClick = (e) => {
+    e.stopPropagation(); // Ngăn chặn sự kiện click lan truyền
+    setShowSettingMenu((prev) => !prev);
+  };
 
   // --- Fetch Flashcards ---
-  // (Giữ nguyên hàm fetchFlashcards)
   const fetchFlashcards = useCallback(async () => {
-    // Bọc trong useCallback
     setLoading(true);
     try {
-      // *** QUAN TRỌNG: Đảm bảo endpoint này trả về danh sách flashcards của module ***
-      // Endpoint có thể là `/api/modules/${moduleId}/flashcards` hoặc tương tự
-      const response = await axiosInstance.get(`/api/modules/${moduleId}`); // SỬA ENDPOINT NẾU CẦN
+      const response = await axiosInstance.get(`/api/modules/${moduleId}`);
       setFlashcards(response.data || []);
       setCurrentIndex(0);
       setSlideDirection("none");
+      const classResponse = await axiosInstance.get(
+        `api/classes/getClass/${classId}`
+      );
+      setClassName(classResponse.data.name); // Lưu tên lớp học
     } catch (error) {
       console.error("Error fetching flashcards:", error);
       setFlashcards([]); // Set rỗng nếu lỗi
     } finally {
       setLoading(false);
     }
-  }, [moduleId]); // Phụ thuộc moduleId
+  }, [moduleId, classId]); // classId is used for fetching className
 
   useEffect(() => {
     if (moduleId) {
-      // Chỉ fetch khi có moduleId
       fetchFlashcards();
     }
-  }, [fetchFlashcards, moduleId]); // Thêm moduleId vào dependencies
+  }, [fetchFlashcards, moduleId]); // fetchFlashcards will change if moduleId changes
 
   // --- Xóa hàm handleAddFlashcard cũ ---
 
@@ -57,28 +68,74 @@ const FlashcardList = () => {
     setIsAddModalOpen(false);
   };
 
-  // --- Hàm xử lý khi modal thêm thành công ---
   const handleAddSuccess = (newlyAddedCards) => {
-    // Kiểm tra xem newlyAddedCards có phải là mảng không
     if (Array.isArray(newlyAddedCards)) {
-      // Cập nhật state flashcards với các thẻ mới
       const updatedFlashcards = [...flashcards, ...newlyAddedCards];
       setFlashcards(updatedFlashcards);
-      // Tùy chọn: Chuyển đến thẻ đầu tiên mới được thêm
       if (newlyAddedCards.length > 0) {
-        setCurrentIndex(flashcards.length); // Index của thẻ đầu tiên trong nhóm mới thêm
-        setSlideDirection("none"); // Không cần hiệu ứng slide khi thêm nhiều thẻ
+        setCurrentIndex(flashcards.length);
+        setSlideDirection("none");
       }
     } else {
       console.warn(
         "handleAddSuccess received non-array data:",
         newlyAddedCards
       );
-      // Có thể fetch lại toàn bộ danh sách nếu API không trả về đúng chuẩn
       fetchFlashcards();
     }
-    closeAddModal(); // Đóng modal sau khi xử lý xong
+    closeAddModal();
   };
+
+  // --- Edit Flashcard Modal Logic ---
+  useEffect(() => {
+    if (isEditModalOpen && currentCard) {
+      setCardToEditId(currentCard._id);
+      setEditedTerm(currentCard.term);
+      setEditedDefinition(currentCard.definition);
+    } else if (!isEditModalOpen) {
+      setCardToEditId(null);
+      setEditedTerm("");
+      setEditedDefinition("");
+    }
+  }, [isEditModalOpen]);
+
+  const handleSaveEdit = async () => {
+    if (!cardToEditId) return;
+    try {
+      await axiosInstance.put(`/api/flashcards/${cardToEditId}`, {
+        term: editedTerm,
+        definition: editedDefinition,
+      });
+      setFlashcards((prevFlashcards) =>
+        prevFlashcards.map((fc) =>
+          fc._id === cardToEditId
+            ? { ...fc, term: editedTerm, definition: editedDefinition }
+            : fc
+        )
+      );
+      setIsEditModalOpen(false);
+    } catch (error) {
+      console.error("Error updating flashcard:", error);
+      alert("Failed to update flashcard.");
+    }
+  };
+
+  const handleCloseEditModal = () => setIsEditModalOpen(false);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        settingIconRef.current &&
+        !settingIconRef.current.contains(e.target)
+      ) {
+        setShowSettingMenu(false);
+      }
+    };
+    if (showSettingMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [showSettingMenu]);
 
   // --- Navigation Functions (goToNextCard, goToPreviousCard) ---
   // (Giữ nguyên)
@@ -113,6 +170,12 @@ const FlashcardList = () => {
       ) {
         return;
       }
+      if (
+        isEditModalOpen &&
+        (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")
+      ) {
+        return;
+      }
 
       if (flashcards.length === 0) return;
       if (e.key === "ArrowRight") goToNextCard();
@@ -122,7 +185,13 @@ const FlashcardList = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [flashcards.length, goToNextCard, goToPreviousCard, isAddModalOpen]); // Thêm isAddModalOpen
+  }, [
+    flashcards.length,
+    goToNextCard,
+    goToPreviousCard,
+    isAddModalOpen,
+    isEditModalOpen,
+  ]);
 
   // --- Render Logic ---
   if (loading) return <div>Loading...</div>;
@@ -135,13 +204,44 @@ const FlashcardList = () => {
   if (slideDirection === "right") cardContainerClass += " slide-enter-right";
 
   return (
-    <div className="flashcard-page-container">
-      <h1>Flashcard Deck</h1>
+    <div className="container">
+      <div className="class-name">{className}</div>
+      <div className="flashcard-header">
+        <div className="nav1-header">{moduleName}</div>
+        <div className="setting-section" onClick={handleSettingIconClick}>
+          <div className="setting-icon" ref={settingIconRef}>
+            <SettingIcon />
+            {showSettingMenu && (
+              <div className="setting-menu-modal">
+                <button>Sửa tên học phần</button>
+                <button>Xuất</button>
+                <button>Xóa</button>
+              </div>
+            )}
+            {!showSettingMenu && <span className="more-text">Xem thêm</span>}
+          </div>
+        </div>
+      </div>
 
-      {/* Nút mở modal thêm thẻ */}
+      <div className="flashcard-actions">
+        <div className="action-card">Thẻ ghi nhớ</div>
+        <div className="action-card">
+          <Link
+            to={`/learn/${moduleId}/${encodeURIComponent(
+              moduleName
+            )}/${classId}`}
+          >
+            {" "}
+            Học
+          </Link>
+        </div>
+        <div className="action-card">Kiểm tra</div>
+        <div className="action-card">Trò chơi</div>
+      </div>
+      {/* 
       <button onClick={openAddModal} className="btn-open-add-modal">
         + Add New Cards
-      </button>
+      </button> */}
 
       {/* Khu vực hiển thị thẻ */}
       <div className="flashcard-viewer">
@@ -178,7 +278,12 @@ const FlashcardList = () => {
               // Reset animation class sau khi hoàn thành
               onAnimationEnd={() => setSlideDirection("none")}
             >
-              {currentCard && <FlashcardElement data={currentCard} />}
+              {currentCard && (
+                <FlashcardElement
+                  data={currentCard}
+                  openEditModal={setIsEditModalOpen}
+                />
+              )}
             </div>
 
             {/* Nút điều hướng phải */}
@@ -227,7 +332,52 @@ const FlashcardList = () => {
         moduleId={moduleId}
       />
 
-      {/* Xóa phần add-flashcard-section cũ */}
+      {isEditModalOpen && currentCard && (
+        <div className="modal edit-flashcard-modal">
+          <div className="modal-content">
+            <div className="edit-modal-header">
+              Sửa Flashcard
+              <button
+                onClick={handleCloseEditModal}
+                className="modal-close-btn"
+              >
+                &times;
+              </button>
+            </div>
+            <div className="edit-modal-content">
+              <div>
+                <label htmlFor="editedTermInput">Thuật ngữ:</label>
+                <input
+                  id="editedTermInput"
+                  className="term"
+                  value={editedTerm}
+                  onChange={(e) => setEditedTerm(e.target.value)}
+                  placeholder="Nhập thuật ngữ"
+                />
+              </div>
+              <div>
+                <label htmlFor="editedDefinitionInput">Định nghĩa:</label>
+                <textarea
+                  id="editedDefinitionInput"
+                  className="definition"
+                  value={editedDefinition}
+                  onChange={(e) => setEditedDefinition(e.target.value)}
+                  placeholder="Nhập định nghĩa"
+                  rows={4}
+                />
+              </div>
+            </div>
+            <div className="edit-modal-footer">
+              <button onClick={handleSaveEdit} className="btn-save">
+                Lưu
+              </button>
+              <button onClick={handleCloseEditModal} className="btn-cancel">
+                Hủy
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

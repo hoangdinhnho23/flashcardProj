@@ -61,7 +61,7 @@ body {
 }
 
 .app-container {
-  background-color: #f6f6f6;
+  background-color: white;
   min-height: 101vh;
 }
 
@@ -125,6 +125,16 @@ button {
   list-style: none;
   display: flex;
   gap: 3.2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 4px solid #f9f9f9;
+  & .nav1-link:hover,
+  & .nav1-link:active,
+  & .nav1-link.active {
+    padding-bottom: 0.8rem; /* Hoặc 0.4rem tùy theo ý muốn cuối cùng của bạn */
+    border-bottom: 4px solid #1971c2; /* Sửa: Sử dụng border-bottom và màu mong muốn */
+    z-index: 0;
+    transition: all 0.25s ease;
+  }
 }
 
 .nav1-header {
@@ -138,14 +148,6 @@ button {
   font-size: 1.8rem;
   color: #333;
   font-weight: 500;
-}
-
-.nav1-link:hover,
-.nav1-link:active,
-.nav1-link.active {
-  border-bottom: 4px solid #1971c2;
-  padding-bottom: 0.4rem;
-  transition: all 0.25s ease;
 }
 
 /* #endregion */
@@ -172,17 +174,18 @@ button {
   font-size: 2.4rem;
   font-weight: 500;
   padding: 0.4rem 3.2rem;
-  color: #093258;
+  color: #333;
   border-radius: 6px;
   background-color: #fff;
   align-items: center;
   position: relative;
   box-sizing: border-box;
   z-index: 1;
-  transition: transform 0.2s ease;
+  border-bottom: 4px solid transparent; /* Thêm border trong suốt ban đầu */
+  transition: transform 0.2s ease, border-color 0.2s ease; /* Thêm border-color vào transition */
 }
 
-.link-element::after {
+/* .link-element::after {
   content: "";
   position: absolute;
   width: 102%;
@@ -198,12 +201,10 @@ button {
 .link-element:hover::after {
   transform: translateY(2px) translateX(-1%) scale(1.008);
   background: #339af0;
-}
+} */
 
 .link-element:hover {
-  transform: translateY(-3px); /* Giảm độ nhấc lên một chút */
-  box-shadow: 0 0.6rem 1.2rem rgba(0, 0, 0, 0.2);
-  color: #0e4171;
+  border-bottom-color: #1971c2;
 }
 .li-element {
   box-sizing: border-box;
@@ -213,6 +214,7 @@ button {
   display: flex;
   align-items: center;
   gap: 1.2rem;
+  padding: 0.8rem 0;
 }
 
 .link-element-header {
@@ -220,6 +222,22 @@ button {
   white-space: nowrap;
   flex-grow: 1; /* Cho phép header chiếm không gian còn lại */
   min-width: 0; /* Quan trọng: Cho phép header co lại */
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-items: start;
+  & .top {
+    font-size: 1.6rem;
+    display: flex;
+    gap: 2rem;
+  }
+  & .bottom {
+    font-size: 2.4rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: center; // Căn giữa icon và text theo chiều ngang (như một khối)
+    align-items: center; // Căn giữa icon và text với nhau theo chiều dọc
+  }
 }
 .link-element-header .header-icon {
   flex-shrink: 0;
@@ -230,6 +248,7 @@ button {
   overflow: hidden;
   white-space: nowrap;
   min-width: 0;
+  margin-left: 0.4rem;
   padding: 0.2rem 0;
 }
 .link-element-action {
@@ -244,6 +263,7 @@ button {
 .svg-icon {
   height: 2.4rem;
   width: 2.4rem;
+  color: #666;
 }
 
 @media (max-width: 450px) {
@@ -311,12 +331,19 @@ button {
   padding: 2.4rem 3.2rem;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  min-width: 300px;
-  max-width: 500px;
+  max-width: 600px;
+  max-height: 400px;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
   animation: slideDownFadeIn 0.3s ease-out forwards;
+}
+
+.edit-modal-header {
+  font-size: 3.2rem;
+  font-weight: 600;
 }
 
 .modal-content h2 {
@@ -394,15 +421,12 @@ button {
 /* #endregion */
 
 /******************************************/
-/* #region Module page */
+/* #region Trang danh sach module */
 /******************************************/
 
 .module-list-in-class {
-  margin-top: 4.8rem;
+  margin-top: 1.6rem;
   gap: 2.4rem;
-}
-.module-element {
-  z-index: 1;
 }
 .module-element:link,
 .module-element:visited {
@@ -417,54 +441,100 @@ button {
   overflow: visible;
   z-index: 1;
 
-  box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0.4rem 0.8rem 4px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease; /* Thêm hiệu ứng khi hover (tùy chọn) */
 }
+.module-list-header {
+  margin-top: -1rem;
+  width: 10rem;
+  margin-left: 3.2rem;
+  color: #888;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.6rem;
+}
+/* #region Search Input specific to Module List page */
 
-.module-element::after {
+/* #endregion */
+
+.module-element:link::after,
+.module-element:visited::after {
   content: "";
   position: absolute;
   width: 100%;
   top: 0px;
   left: 0px;
+  right: 0;
+  bottom: 0;
   height: 100%;
   background-color: white;
-  border-radius: 6px;
+  border-radius: 10px;
   z-index: -2;
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.module-element::before {
+.module-element:link::before,
+.module-element:visited::before {
   content: "";
   position: absolute;
   width: 100%;
   top: 0px;
   left: 0px;
+  right: 0;
+  bottom: 0;
   height: 100%;
   background-color: #a2d6e4;
-  border-radius: 6px 40px 6px 6px;
+  border-radius: 10px;
   transform: rotate(-0.5deg); /* Độ xoay (điều chỉnh nếu cần) */
   z-index: -3;
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
+.module-element {
+  position: relative;
+  z-index: 1;
+  .module-element-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    background: #ffe066; // Màu lớp dưới cùng
+    z-index: -4;
+    transform: rotate(-1deg);
+    transition: transform 0.3s, background 0.3s;
+    pointer-events: none;
+  }
+}
 @media (max-width: 600px) {
   .module-element::before {
-    transform: rotate(-1.2deg);
+    transform: rotate(-1deg);
   }
   .module-element:hover::before {
     transform: rotate(-1.5deg); /* Xoay thêm và to ra */
     background-color: #90caf9; /* Xanh dương đậm hơn (Material Blue 200) */
   }
+  .module-element .module-element-bg {
+    transform: rotate(-2deg);
+  }
+  .module-element:hover {
+    transform: rotate(1deg); /* Nhấc lên nhiều hơn chút */
+  }
+  .module-element:hover .module-element-bg {
+    transform: rotate(-3deg); /* Xoay thêm */
+  }
 }
 
 .module-element:hover {
-  transform: translateY(-3px); /* Nhấc lên nhiều hơn chút */
-}
-
-.module-element:hover::before {
-  transform: rotate(-1deg); /* Xoay thêm và to ra */
-  background-color: #90caf9; /* Xanh dương đậm hơn (Material Blue 200) */
+  transform: rotate(0.5deg); /* Nhấc lên nhiều hơn chút */
+  .module-element-bg {
+    transform: rotate(-2deg);
+  }
+  &::before {
+    transform: rotate(-1deg);
+    background-color: #90caf9;
+  }
 }
 
 .module-additional-info {
@@ -490,29 +560,145 @@ button {
   text-overflow: ellpisis;
   padding: 0.2rem 0rem;
 }
+.moduleHeader {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1.6rem;
+  margin-bottom: 2.4rem;
+  box-shadow: 0px 3px 0px 0px rgba(0, 0, 0, 0.15);
+  .search-bar {
+    min-width: 60%;
+    .module-list-search-input {
+      padding: 1rem 1.2rem;
+      font-size: 1.6rem;
+      width: 100%;
 
+      max-width: 60rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+
+      &:focus {
+        outline: none;
+        border-color: rgb(64, 64, 251);
+        box-shadow: 0 0 0 2px rgba(64, 64, 251, 0.2);
+      }
+    }
+  }
+}
+
+.setting-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+
+  .setting-menu-modal {
+    position: absolute;
+    top: 120%;
+    right: 0;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    padding: 1rem 0.8rem;
+    z-index: 100;
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .setting-menu-modal button {
+    background: none;
+    border: none;
+    color: #1971c2;
+    font-size: 1.5rem;
+    text-align: left;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .setting-menu-modal button:hover {
+    background: #f1f3f5;
+  }
+}
+
+//Setting icon
+.setting-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative; /* Để định vị tooltip */
+  .more-text {
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 110%;
+    font-size: 1.4rem;
+    color: white;
+    background-color: black;
+    padding: 0.8rem 1.2rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 10;
+  }
+
+  &:hover {
+    .more-text {
+      display: block;
+      z-index: 11;
+    }
+  }
+
+  .svg-icon {
+    stroke: #333;
+    width: 3.2rem;
+    height: 3.2rem;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+  }
+}
 /* #endregion */
 
 /******************************************/
-/* #region Flashcard */
+/* #region Trang xem cac flashcard trong hoc phan */
 /******************************************/
-/******************************************/
-/* #region Flashcard */
-/******************************************/
-/* ... (Các style khác giữ nguyên) ... */
-
-/******************************************/
-/* #region Flashcard Page & Viewer */
-/******************************************/
-
-.flashcard-page-container {
+.flashcard-header {
   display: flex;
-  flex-direction: column;
-  align-items: center; /* Căn giữa các phần tử con theo chiều ngang */
-  gap: 3.2rem; /* Khoảng cách giữa các phần */
-  padding: 3.2rem;
+  justify-content: space-between;
 }
 
+.class-name {
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: #333;
+  margin-bottom: 1.6rem;
+}
+
+.flashcard-actions {
+  display: flex;
+  gap: 2rem;
+  margin-top: 3.2rem;
+  margin-bottom: 3.2rem;
+  align-items: center;
+  .action-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.2rem 1.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #e7f5ff; /* Nền xanh nhạt */
+  }
+}
 .flashcard-viewer {
   display: flex;
   align-items: center; /* Căn giữa thẻ và nút theo chiều dọc */
@@ -522,7 +708,7 @@ button {
   min-height: 35rem; /* Chiều cao tối thiểu để chứa thẻ và nút */
   position: relative; /* Cần cho định vị nút tuyệt đối nếu muốn */
   perspective: 1200px; /* Tăng perspective cho hiệu ứng đẹp hơn */
-  overflow: hidden; /* Ẩn các thẻ trượt ra ngoài */
+  overflow: visible; /* Ẩn các thẻ trượt ra ngoài */
 }
 
 /* Container cho thẻ hiện tại để áp dụng animation */
@@ -569,21 +755,6 @@ button {
   height: 2.4rem;
   stroke: #333;
 }
-
-/* Tùy chọn: Định vị tuyệt đối nút nếu muốn chúng ở rìa */
-/*
-.left-btn {
-  position: absolute;
-  left: 1rem;
-}
-.right-btn {
-  position: absolute;
-  right: 1rem;
-}
-.flashcard-viewer {
-  justify-content: center; // Cần cái này nếu nút absolute
-}
-*/
 
 /* Bộ đếm thẻ */
 .flashcard-counter {
@@ -659,23 +830,43 @@ button {
 /******************************************/
 .flashcard-element {
   /* Giữ nguyên các thuộc tính kích thước, border-radius, font-size, cursor, position, transform-style, transition (cho hiệu ứng lật) */
-  min-width: 40rem; /* Có thể điều chỉnh */
-  min-height: 25rem; /* Có thể điều chỉnh */
+  min-width: 48rem; /* Có thể điều chỉnh */
+  min-height: 32rem; /* Có thể điều chỉnh */
   border-radius: 6px;
+  width: 64rem;
+  height: 36rem;
   font-size: 1.8rem; /* Tăng font size một chút */
   color: #333;
   position: relative;
   cursor: pointer;
   transform-style: preserve-3d;
   transition: transform 0.6s ease; /* Hiệu ứng lật */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Thêm bóng đổ rõ hơn */
+  box-shadow: 0px 0px 12px 4px rgba(0, 0, 0, 0.25); /* Thêm bóng đổ rõ hơn */
   /* Không cần background-color ở đây nữa vì các mặt sẽ có màu riêng */
   /* Đảm bảo thẻ không bị co lại */
   flex-shrink: 0;
 }
 
+.tool-icon {
+  z-index: 10; /* Đảm bảo icon nổi lên trên thẻ */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  &:hover {
+    background-color: #b5b5b5;
+  }
+  .svg-icon {
+    width: 1.6rem;
+    height: 1.6rem;
+    stroke: #333;
+  }
+}
+
 .flashcard-element.is-flipped {
-  transform: rotateY(180deg);
+  transform: rotateX(180deg);
 }
 
 .flashcard-face {
@@ -686,14 +877,19 @@ button {
   height: 100%;
   backface-visibility: hidden;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem; /* Tăng padding */
+  flex-direction: column;
+  padding: 2rem 4rem; /* Tăng padding */
   border-radius: 6px; /* Giữ bo góc */
   box-sizing: border-box;
   overflow-wrap: break-word;
   text-align: center;
   line-height: 1.4; /* Cải thiện đọc */
+}
+
+.tool-box {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.6rem;
 }
 
 .flashcard-front {
@@ -702,10 +898,17 @@ button {
   z-index: 2;
 }
 
+.flashcard-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
 .flashcard-back {
   background-color: #e0f7fa; /* Màu xanh nhạt */
   border: 1px solid #b2ebf2;
-  transform: rotateY(180deg);
+  transform: rotateX(180deg);
 }
 
 /******************************************/

@@ -95,6 +95,7 @@ function Module() {
 
   return (
     <>
+      <div className="module-list-header">Gần đây</div>
       <div>
         {allModules.length === 0 && !loading ? (
           <p> Bạn chưa tạo học phần nào</p>
@@ -114,7 +115,7 @@ function Module() {
           </ul>
         )}
       </div>
-      {isEditModalOpen && selectedModule && (
+      {/* {isEditModalOpen && selectedModule && (
         <div className="modal">
           <div className="modal-content">
             <h2>Chỉnh sửa học phần</h2>
@@ -144,7 +145,7 @@ function Module() {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 }
